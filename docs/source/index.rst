@@ -21,6 +21,7 @@ JWCrypto uses the Cryptography_ package for all the crypto functions.
 
    jwk
    jws
+   jwsstream
    jwe
    jwt
    common

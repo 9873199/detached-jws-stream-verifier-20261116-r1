@@ -3,16 +3,22 @@
 from __future__ import unicode_literals
 
 import copy
+import hashlib
+import hmac
+import io
 import unittest
 
 from cryptography.hazmat.backends import default_backend
+from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.asymmetric import ec
+from cryptography.hazmat.primitives.asymmetric import padding
 from cryptography.hazmat.primitives.asymmetric import rsa
 
 from jwcrypto import jwa
 from jwcrypto import jwe
 from jwcrypto import jwk
 from jwcrypto import jws
+from jwcrypto import jwsstream
 from jwcrypto import jwt
 from jwcrypto.common import InvalidJWSEHeader
 from jwcrypto.common import InvalidJWSERegOperation
@@ -3095,3 +3101,360 @@ class TestCommonHeaderFunctions(unittest.TestCase):
              'crit': JWSEHeaderParameter('Crit', True, True, None)})
         merged = merge_and_check_headers(p, None, registry=reg)
         self.assertEqual(merged['kid'], 'key1')
+
+
+class _ChunkedStream:
+    """Read-only, non-seekable binary stream with a per-read cap."""
+
+    def __init__(self, data, max_read=None):
+        self._data = data
+        self._pos = 0
+        self._max = max_read
+        self.reads = 0
+        self.closed = False
+
+    def read(self, n=-1):
+        self.reads += 1
+        if self._pos >= len(self._data):
+            return b''
+        if n is None or n < 0:
+            n = len(self._data)
+        if self._max is not None:
+            n = min(n, self._max)
+        chunk = self._data[self._pos:self._pos + n]
+        self._pos += len(chunk)
+        return chunk
+
+    @property
+    def position(self):
+        return self._pos
+
+
+class _FailAfterStream:
+    """Returns one short read, then raises."""
+
+    def __init__(self, chunk):
+        self._chunk = chunk
+        self._sent = False
+
+    def read(self, n=-1):
+        if not self._sent:
+            self._sent = True
+            return self._chunk
+        raise IOError('stream broke mid-read')
+
+
+def _oneshot_sign(alg, key, protected_b64, payload, b64=True):
+    """Independent one-shot signer used to cross-check streaming verify."""
+    if b64:
+        enc = base64url_encode(payload).encode('ascii')
+    else:
+        enc = payload
+    sigin = protected_b64 + b'.' + enc
+    if alg == 'HS256':
+        skey = base64url_decode(key.get_op_key('sign'))
+        return hmac.new(skey, sigin, hashlib.sha256).digest()
+    priv = key.get_op_key('sign')
+    if alg == 'RS256':
+        return priv.sign(sigin, padding.PKCS1v15(), hashes.SHA256())
+    # PS256 with the JWA-mandated salt length
+    return priv.sign(sigin,
+                     padding.PSS(padding.MGF1(hashes.SHA256()), 32),
+                     hashes.SHA256())
+
+
+def _make_detached_token(alg, key, header, payload, b64=True):
+    if isinstance(header, dict):
+        header = json_encode(header).encode('utf-8')
+    protected_b64 = base64url_encode(header).encode('ascii')
+    sig = _oneshot_sign(alg, key, protected_b64, payload, b64)
+    return protected_b64 + b'..' + base64url_encode(sig).encode('ascii')
+
+
+class TestJWSStream(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        cls.oct_key = jwk.JWK.generate(kty='oct', size=256)
+        cls.rsa_key = jwk.JWK.generate(kty='RSA', size=2048)
+
+    def key_for(self, alg):
+        return self.oct_key if alg == 'HS256' else self.rsa_key
+
+    def test_roundtrip_all_algs_chunk_sizes(self):
+        payload = bytes(range(256)) * 40 + b'\x00nul\x00and \xff\xfe raw'
+        for alg in ['HS256', 'RS256', 'PS256']:
+            key = self.key_for(alg)
+            token = _make_detached_token(alg, key, {'alg': alg}, payload)
+            for chunk_size in [1, 2, 3, 4, 5, 7, 64, 1024, 65536]:
+                stream = _ChunkedStream(payload)
+                result = jwsstream.verify_detached_stream(
+                    token, key, stream=stream, allowed_algs=[alg],
+                    chunk_size=chunk_size)
+                self.assertTrue(result.verified)
+                self.assertEqual(result.alg, alg)
+                self.assertEqual(result.payload_size, len(payload))
+                self.assertEqual(result.protected_header['alg'], alg)
+
+    def test_payload_remainder_across_chunks(self):
+        # Sizes around the 3-byte base64 quantum and the chunk boundary
+        for size in list(range(0, 9)) + [65535, 65536, 65537, 131072 + 1]:
+            payload = bytes((i * 7 + 3) % 256 for i in range(size))
+            token = _make_detached_token('HS256', self.oct_key,
+                                         {'alg': 'HS256'}, payload)
+            for chunk_size in [1, 2, 3, 5, 8192]:
+                result = jwsstream.verify_detached_stream(
+                    token, self.oct_key, stream=_ChunkedStream(payload),
+                    allowed_algs=['HS256'], chunk_size=chunk_size)
+                self.assertEqual(result.payload_size, size)
+
+    def test_short_reads_allowed(self):
+        payload = bytes(range(256)) * 10
+        token = _make_detached_token('HS256', self.oct_key,
+                                     {'alg': 'HS256'}, payload)
+        # stream returns at most 3 bytes per read() call
+        stream = _ChunkedStream(payload, max_read=3)
+        result = jwsstream.verify_detached_stream(
+            token, self.oct_key, stream=stream, allowed_algs=['HS256'],
+            chunk_size=65536)
+        self.assertEqual(result.payload_size, len(payload))
+
+    def test_b64_false(self):
+        header = {'alg': 'HS256', 'b64': False, 'crit': ['b64']}
+        for payload in ['日志归档正文'.encode('utf-8'),
+                        b'\xff\xfe\x00not utf-8\x00',
+                        b'',
+                        bytes(range(256)) * 20]:
+            token = _make_detached_token('HS256', self.oct_key, header,
+                                         payload, b64=False)
+            result = jwsstream.verify_detached_stream(
+                token, self.oct_key, stream=_ChunkedStream(payload),
+                allowed_algs=['HS256'], chunk_size=7)
+            self.assertTrue(result.verified)
+            self.assertEqual(result.payload_size, len(payload))
+
+    def test_cross_verify_library_oneshot_sign(self):
+        # Sign one-shot with the classic JWS object, verify streaming
+        payload = bytes(range(256)) * 30
+        for alg in ['HS256', 'RS256', 'PS256']:
+            key = self.key_for(alg)
+            s = jws.JWS(payload)
+            s.add_signature(key, protected={'alg': alg})
+            s.detach_payload()
+            token = s.serialize(compact=True)
+            for chunk_size in [1, 3, 4096]:
+                result = jwsstream.verify_detached_stream(
+                    token, key, stream=_ChunkedStream(payload),
+                    allowed_algs=[alg], chunk_size=chunk_size)
+                self.assertTrue(result.verified)
+
+    def test_cross_verify_classic_verify(self):
+        # Sign with the independent one-shot signer, verify with the
+        # classic in-memory JWS path (detached_payload regression)
+        payload = b'classic interop payload \x00\xff'
+        token = _make_detached_token('HS256', self.oct_key,
+                                     {'alg': 'HS256'}, payload)
+        s = jws.JWS()
+        s.deserialize(token.decode('ascii'))
+        s.verify(self.oct_key, detached_payload=payload)
+        self.assertTrue(s.is_valid)
+
+    def test_cross_verify_classic_verify_b64_false(self):
+        header = {'alg': 'HS256', 'b64': False, 'crit': ['b64']}
+        payload = '未编码正文 unencoded'.encode('utf-8')
+        token = _make_detached_token('HS256', self.oct_key, header,
+                                     payload, b64=False)
+        s = jws.JWS()
+        s.deserialize(token.decode('utf-8'))
+        s.verify(self.oct_key, detached_payload=payload)
+        self.assertTrue(s.is_valid)
+
+    def test_flipped_byte_fails(self):
+        payload = bytearray(bytes(range(256)) * 40)
+        token = _make_detached_token('HS256', self.oct_key,
+                                     {'alg': 'HS256'}, bytes(payload))
+        payload[len(payload) // 2] ^= 0x01
+        with self.assertRaises(jws.InvalidJWSSignature):
+            jwsstream.verify_detached_stream(
+                token, self.oct_key, stream=_ChunkedStream(bytes(payload)),
+                allowed_algs=['HS256'])
+
+    def test_protected_reencoding_fails(self):
+        payload = b'protected encoding matters'
+        token = _make_detached_token('HS256', self.oct_key,
+                                     {'alg': 'HS256'}, payload)
+        # Same parsed JSON, different original encoding
+        reencoded = base64url_encode(b'{ "alg" : "HS256" }').encode('ascii')
+        tampered = reencoded + b'.' + token.split(b'.', 1)[1]
+        with self.assertRaises(jws.InvalidJWSSignature):
+            jwsstream.verify_detached_stream(
+                tampered, self.oct_key, stream=_ChunkedStream(payload),
+                allowed_algs=['HS256'])
+
+    def test_read_error_propagates(self):
+        payload = bytes(range(256)) * 40
+        token = _make_detached_token('HS256', self.oct_key,
+                                     {'alg': 'HS256'}, payload)
+        with self.assertRaises(IOError):
+            jwsstream.verify_detached_stream(
+                token, self.oct_key,
+                stream=_FailAfterStream(payload[:10]),
+                allowed_algs=['HS256'])
+
+    def test_size_limit_fails_fast(self):
+        payload = bytes(range(256)) * 400  # 102400 bytes
+        token = _make_detached_token('HS256', self.oct_key,
+                                     {'alg': 'HS256'}, payload)
+        stream = _ChunkedStream(payload)
+        with self.assertRaises(jwsstream.JWSStreamPayloadTooLarge):
+            jwsstream.verify_detached_stream(
+                token, self.oct_key, stream=stream,
+                allowed_algs=['HS256'], chunk_size=512,
+                max_payload_size=1000)
+        # failed immediately, without reading the whole payload
+        self.assertLess(stream.position, len(payload))
+
+    def test_stream_not_closed(self):
+        payload = b'do not close me'
+        token = _make_detached_token('HS256', self.oct_key,
+                                     {'alg': 'HS256'}, payload)
+        stream = io.BytesIO(payload)
+        jwsstream.verify_detached_stream(token, self.oct_key, stream=stream,
+                                         allowed_algs=['HS256'])
+        self.assertFalse(stream.closed)
+        bad = io.BytesIO(payload + b'x')
+        with self.assertRaises(jws.InvalidJWSSignature):
+            jwsstream.verify_detached_stream(token, self.oct_key, stream=bad,
+                                             allowed_algs=['HS256'])
+        self.assertFalse(bad.closed)
+
+    def test_empty_payload(self):
+        for b64, header in [(True, {'alg': 'HS256'}),
+                            (False, {'alg': 'HS256', 'b64': False,
+                                     'crit': ['b64']})]:
+            token = _make_detached_token('HS256', self.oct_key, header,
+                                         b'', b64=b64)
+            result = jwsstream.verify_detached_stream(
+                token, self.oct_key, stream=_ChunkedStream(b''),
+                allowed_algs=['HS256'])
+            self.assertEqual(result.payload_size, 0)
+
+    def test_duplicate_json_member_rejected(self):
+        payload = b'data'
+        token = _make_detached_token('HS256', self.oct_key,
+                                     b'{"alg":"HS256","alg":"HS256"}',
+                                     payload)
+        with self.assertRaises(jws.InvalidJWSObject):
+            jwsstream.verify_detached_stream(
+                token, self.oct_key, stream=_ChunkedStream(payload),
+                allowed_algs=['HS256'])
+
+    def test_unknown_crit_rejected(self):
+        payload = b'data'
+        header = {'alg': 'HS256', 'crit': ['exp'], 'exp': 1}
+        token = _make_detached_token('HS256', self.oct_key, header, payload)
+        with self.assertRaises(jws.InvalidJWSObject):
+            jwsstream.verify_detached_stream(
+                token, self.oct_key, stream=_ChunkedStream(payload),
+                allowed_algs=['HS256'])
+
+    def test_b64_non_boolean_rejected(self):
+        payload = b'data'
+        header = {'alg': 'HS256', 'b64': 'false', 'crit': ['b64']}
+        token = _make_detached_token('HS256', self.oct_key, header, payload)
+        with self.assertRaises(jws.InvalidJWSObject):
+            jwsstream.verify_detached_stream(
+                token, self.oct_key, stream=_ChunkedStream(payload),
+                allowed_algs=['HS256'])
+
+    def test_b64_false_without_crit_rejected(self):
+        payload = b'data'
+        token = _make_detached_token('HS256', self.oct_key,
+                                     {'alg': 'HS256', 'b64': False}, payload,
+                                     b64=False)
+        with self.assertRaises(jws.InvalidJWSObject):
+            jwsstream.verify_detached_stream(
+                token, self.oct_key, stream=_ChunkedStream(payload),
+                allowed_algs=['HS256'])
+
+    def test_payload_segment_with_stream_rejected(self):
+        payload = b'data'
+        token = _make_detached_token('HS256', self.oct_key,
+                                     {'alg': 'HS256'}, payload)
+        # reintroduce a non-empty payload segment
+        parts = token.split(b'.')
+        token = parts[0] + b'.' + base64url_encode(payload).encode('ascii') \
+            + b'.' + parts[2]
+        with self.assertRaises(jws.InvalidJWSOperation):
+            jwsstream.verify_detached_stream(
+                token, self.oct_key, stream=_ChunkedStream(payload),
+                allowed_algs=['HS256'])
+
+    def test_alg_permission_not_widened(self):
+        payload = b'data'
+        token = _make_detached_token('HS256', self.oct_key,
+                                     {'alg': 'HS256'}, payload)
+        # token alg not in the granted permission set
+        with self.assertRaises(jws.InvalidJWSOperation):
+            jwsstream.verify_detached_stream(
+                token, self.oct_key, stream=_ChunkedStream(payload),
+                allowed_algs=['RS256'])
+        # caller must grant explicitly
+        with self.assertRaises(ValueError):
+            jwsstream.verify_detached_stream(
+                token, self.oct_key, stream=_ChunkedStream(payload),
+                allowed_algs=None)
+        # algorithms outside the supported set are refused
+        with self.assertRaises(ValueError):
+            jwsstream.verify_detached_stream(
+                token, self.oct_key, stream=_ChunkedStream(payload),
+                allowed_algs=['ES256'])
+
+    def test_ps256_salt_length_fixed(self):
+        payload = b'pss salt length'
+        protected_b64 = base64url_encode(
+            json_encode({'alg': 'PS256'})).encode('ascii')
+        sigin = protected_b64 + b'.' + base64url_encode(payload).encode(
+            'ascii')
+        priv = self.rsa_key.get_op_key('sign')
+        # JWA-compliant salt length verifies
+        sig = priv.sign(sigin, padding.PSS(padding.MGF1(hashes.SHA256()), 32),
+                        hashes.SHA256())
+        token = protected_b64 + b'..' + base64url_encode(sig).encode('ascii')
+        result = jwsstream.verify_detached_stream(
+            token, self.rsa_key, stream=_ChunkedStream(payload),
+            allowed_algs=['PS256'])
+        self.assertTrue(result.verified)
+        # a non-JWA salt length must not verify
+        sig = priv.sign(sigin,
+                        padding.PSS(padding.MGF1(hashes.SHA256()), 48),
+                        hashes.SHA256())
+        token = protected_b64 + b'..' + base64url_encode(sig).encode('ascii')
+        with self.assertRaises(jws.InvalidJWSSignature):
+            jwsstream.verify_detached_stream(
+                token, self.rsa_key, stream=_ChunkedStream(payload),
+                allowed_algs=['PS256'])
+
+    def test_result_is_immutable(self):
+        payload = b'immutable'
+        token = _make_detached_token('HS256', self.oct_key,
+                                     {'alg': 'HS256'}, payload)
+        result = jwsstream.verify_detached_stream(
+            token, self.oct_key, stream=_ChunkedStream(payload),
+            allowed_algs=['HS256'])
+        with self.assertRaises(AttributeError):
+            result.alg = 'RS256'
+        with self.assertRaises(TypeError):
+            result.protected_header['alg'] = 'RS256'
+
+    def test_no_result_on_failure(self):
+        payload = b'no partial state'
+        token = _make_detached_token('HS256', self.oct_key,
+                                     {'alg': 'HS256'}, payload)
+        try:
+            jwsstream.verify_detached_stream(
+                token, self.oct_key, stream=_ChunkedStream(payload + b'!'),
+                allowed_algs=['HS256'])
+            self.fail('verification should have failed')
+        except jws.InvalidJWSSignature:
+            pass
