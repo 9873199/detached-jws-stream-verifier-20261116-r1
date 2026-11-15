@@ -1,0 +1,55 @@
+{
+  "uid": 11561,
+  "run_id": "uf-20261116-new20-detached-jws-stream-verifier-retry-1",
+  "reviewed": true,
+  "reviewer": "Codex primary agent, AI-assisted",
+  "frozen_trace_sha256": "875d1977795409685183893b282af5c80a674f8f3714c07d0cda6b15b1d42c2f",
+  "revision": "acceptance-r1",
+  "product_modules": [
+    "jwcrypto.jwsstream",
+    "jwcrypto.jws"
+  ],
+  "support_files": [
+    {
+      "source": "D:\\hc\\userFeedback\\cache\\security-new20-20261116-r1\\review-design\\11561\\test_stream_contract.py",
+      "path": "test_stream_contract.py",
+      "sha256": "fa92de4c882002ab21e374f2cd862a3df7c51598a58c8ddf0b3ff8b3a0edde50"
+    }
+  ],
+  "commands": [
+    {
+      "name": "model-regression",
+      "argv": [
+        "{python}",
+        "-B",
+        "-m",
+        "pytest",
+        "-q",
+        "jwcrypto/tests.py",
+        "-o",
+        "addopts=",
+        "-p",
+        "no:cacheprovider",
+        "--disable-socket"
+      ],
+      "timeout": 300
+    },
+    {
+      "name": "independent-stream-contract",
+      "argv": [
+        "{python}",
+        "-B",
+        "-m",
+        "pytest",
+        "-q",
+        "{verification}/test_stream_contract.py",
+        "-o",
+        "addopts=",
+        "-p",
+        "no:cacheprovider",
+        "--disable-socket"
+      ],
+      "timeout": 300
+    }
+  ]
+}

@@ -1,0 +1,223 @@
+{
+  "time": "2026-11-16T01:46:24+08:00",
+  "task_id": "uf-20261116-new20-detached-jws-stream-verifier",
+  "run_id": "uf-20261116-new20-detached-jws-stream-verifier-retry-1",
+  "uid": 11561,
+  "workspace": "D:\\hc\\userFeedback\\cache\\security-new20-20261116-r1\\queue-r2\\retry-source-jwcrypto",
+  "artifact_directory": "D:\\hc\\userFeedback\\cache\\security-new20-20261116-r1\\evaluation\\uf-20261116-new20-detached-jws-stream-verifier-retry-1\\frozen-artifact",
+  "git_head_after_model": "99162f6beaa630641319c2651cb4ddc35eae3cf3",
+  "initial_sha": "99162f6beaa630641319c2651cb4ddc35eae3cf3",
+  "trajectory_file": "D:\\hc\\userFeedback\\cache\\runs\\uf-20261116-new20-detached-jws-stream-verifier-retry-1\\frozen\\trajectory-original.jsonl",
+  "trajectory_sha256": "875d1977795409685183893b282af5c80a674f8f3714c07d0cda6b15b1d42c2f",
+  "session_ids": [
+    "6884412a-07e2-41e6-afde-256d27772e96"
+  ],
+  "prompt_ids": [
+    "3d46de8f-209b-432c-a9ee-fb7089e69d51"
+  ],
+  "user_turns": 1,
+  "prompt_sha256": "fbecd0758af1884cdec602cc1ff47096a0cf9d71df2445d6b1b139350cd908a0",
+  "frozen_files": [
+    {
+      "path": ".coveragerc",
+      "sha256": "6dbcc2953e49f5c0509fc32b057c9fbb2f6a150676e587dec789910eac0075ae",
+      "bytes": 369
+    },
+    {
+      "path": ".github/workflows/build.yml",
+      "sha256": "62ce3ab9de5f5cae58804cde264ec6cf098a9532bbcfffecac8b8b3968267617",
+      "bytes": 4674
+    },
+    {
+      "path": ".github/workflows/codeql-analysis.yml",
+      "sha256": "cb9f6a0aed84a91283ce10d8f215d6c521d02307b8c9da181bf81c983b6d27b7",
+      "bytes": 2573
+    },
+    {
+      "path": ".github/workflows/ppc64le.yml",
+      "sha256": "579b156f560728321ef2a03a45643242461d1818c59b4b36676f7eaa11bd4f13",
+      "bytes": 1293
+    },
+    {
+      "path": ".github/workflows/publish-to-pypi.yml",
+      "sha256": "5f0e05a1096637c577b932edb1832409013976b5d8f2376e2fe3b77ac795eca0",
+      "bytes": 932
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "6ed380b27500a3c0b2717caf229070a872ef26e6831b6188b46ef54b5a084888",
+      "bytes": 82
+    },
+    {
+      "path": ".readthedocs.yaml",
+      "sha256": "b5f283739fe66eca271ef126905d0b079a950692a30770452db980955a58ce66",
+      "bytes": 1064
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "ea7d049c7705dc13afc202dd18e1827f3484f8212fd3fa7b82fc4a0c363432c9",
+      "bytes": 7816
+    },
+    {
+      "path": "MANIFEST.in",
+      "sha256": "347c4f1fd339901d02036fbf31e3592b985aa1a1c32930ba5044a31042db3dae",
+      "bytes": 54
+    },
+    {
+      "path": "Makefile",
+      "sha256": "9e400b588dfa5a961997429c25dbfc23a20c4cb7f4e2eea6e6df4ad913d1b09e",
+      "bytes": 787
+    },
+    {
+      "path": "README.md",
+      "sha256": "653ccf82eda59e3a47df068d54b8ab297a5013a3235e3c8db03d17eccadaf1b7",
+      "bytes": 2401
+    },
+    {
+      "path": "SECURITY.md",
+      "sha256": "b3fa865792793d087a5cd140923bcf496547eeffff1bafddcd88b264f04f6350",
+      "bytes": 478
+    },
+    {
+      "path": "docs/Makefile",
+      "sha256": "2b3fa5410a0bca7cc26581a3a07cc34f3b8f243d1298aeb4726ba2d66ddafc4f",
+      "bytes": 6956
+    },
+    {
+      "path": "docs/requirements.txt",
+      "sha256": "cdb4adb37aad8005c05005c21adde0df7b6d82e1b3e89a1ea135fd37b234efd6",
+      "bytes": 49
+    },
+    {
+      "path": "docs/source/.static/.gitignore",
+      "sha256": "09247654e20a24bf899c61b8d4f71f6d065010f0b0e378df78afc4522b0db054",
+      "bytes": 9
+    },
+    {
+      "path": "docs/source/common.rst",
+      "sha256": "2e500eb243ceebe9e9658301da953d1ee9f53489e0313c189d8ed27b4a4d4fe5",
+      "bytes": 931
+    },
+    {
+      "path": "docs/source/conf.py",
+      "sha256": "3b8e24f7d3594228f546c9d74dd65e5f40b47af4b59b763735d0cea449da51fb",
+      "bytes": 8760
+    },
+    {
+      "path": "docs/source/index.rst",
+      "sha256": "a70c2b14cd9b74d7d4900b89451c2c8ebf1657dde765b7a731981df04e0d3acd",
+      "bytes": 1173
+    },
+    {
+      "path": "docs/source/jwa.rst",
+      "sha256": "21e2468b64e7a4fc6134b83969db77f75f4baac8f8c7764bbbcb178191eecfde",
+      "bytes": 854
+    },
+    {
+      "path": "docs/source/jwe.rst",
+      "sha256": "12c0d5e49fcbb69f5df63c2bac871802721750453e0531de47ab7d9d4e9c7cba",
+      "bytes": 2597
+    },
+    {
+      "path": "docs/source/jwk.rst",
+      "sha256": "436e74e29ecb2e6fb2c5de99cd9da87123b10b4cd4ac3aa08951e60c2a60b7bb",
+      "bytes": 2259
+    },
+    {
+      "path": "docs/source/jws.rst",
+      "sha256": "e648142a3a5cab3ad91150a8fade00b3ed8e4c00a8abbd7fd077afceed4e4ce0",
+      "bytes": 1586
+    },
+    {
+      "path": "docs/source/jwsstream.rst",
+      "sha256": "6a53fa8dde9ee5ed2d49ea93eb229a3d2c4d196e30f715a02e30db926108aabf",
+      "bytes": 2003
+    },
+    {
+      "path": "docs/source/jwt.rst",
+      "sha256": "ed10347004048da907e50ad0c47fec67862f4f1327ac1b43722842b5a3afcf1c",
+      "bytes": 2063
+    },
+    {
+      "path": "jwcrypto/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "jwcrypto/common.py",
+      "sha256": "b705e30b5926f0bfeff093877b49cb61cb2583bf857ba26d164ce106583f4503",
+      "bytes": 10712
+    },
+    {
+      "path": "jwcrypto/jwa.py",
+      "sha256": "b1ab994163a2b9349b360f9fe856e391f1731fd96b01df70c741baec58b240d4",
+      "bytes": 41405
+    },
+    {
+      "path": "jwcrypto/jwe.py",
+      "sha256": "8bbafe348353c5a4d2617175aadb444c06f5701e8697c041c993ad3a4358f917",
+      "bytes": 26207
+    },
+    {
+      "path": "jwcrypto/jwk.py",
+      "sha256": "66685a9655125691dd1b75c0c128fb3b68744488cad10741e12ac3cea5c5ba51",
+      "bytes": 57608
+    },
+    {
+      "path": "jwcrypto/jws.py",
+      "sha256": "e9d485e71040479150173a31086f58279f673998f993842fca53251b6ecad83f",
+      "bytes": 27654
+    },
+    {
+      "path": "jwcrypto/jwsstream.py",
+      "sha256": "eb8592577deb5cc00bf6dc4c7cd9659c65f938b34215f22693285be7ea65f9e8",
+      "bytes": 14420
+    },
+    {
+      "path": "jwcrypto/jwt.py",
+      "sha256": "f5f0444bdec859d1795ba764054f5d6633ab3602c04b1e55864c7445f8a8ae7a",
+      "bytes": 29665
+    },
+    {
+      "path": "jwcrypto/tests-cookbook.py",
+      "sha256": "f915e806c4fb2c38832466c84ec245c4a198aee68c21ee61e06d455938c779a4",
+      "bytes": 53505
+    },
+    {
+      "path": "jwcrypto/tests.py",
+      "sha256": "236662732e1902b6aa7abf8b5705a939195d26315c9aaf430f432ca0f9e6e639",
+      "bytes": 148973
+    },
+    {
+      "path": "jwcrypto/tests_mldsa.py",
+      "sha256": "689274494266cae75368701f0c4b3ce635b4598aa0573bb2a8811a36a22619e4",
+      "bytes": 44391
+    },
+    {
+      "path": "jwcrypto/version.py",
+      "sha256": "ffd79fcd52e0f4cca989dcc31c60ee81b1fd875ebea7ee4fa95afa11a92ebee5",
+      "bytes": 23
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "ba281d4669b1d44ec6c3a2f779000ccf37001a2a2986cfbda5e1945c5be255b2",
+      "bytes": 1260
+    },
+    {
+      "path": "setup.cfg",
+      "sha256": "b98f036f0ea9c33d4660e9addfddb79d3631e483fbb3b90538ddbf1ed642aec0",
+      "bytes": 132
+    },
+    {
+      "path": "setup.py",
+      "sha256": "d023afa8276344b22a27f6432e9b8f65b865598009798366650caf848c304a92",
+      "bytes": 1518
+    },
+    {
+      "path": "tox.ini",
+      "sha256": "56f74db5dbfc40acb0d21f9d38423774181570d9766f1d2f2aeca21d4eaeb50e",
+      "bytes": 1720
+    }
+  ],
+  "no_postrun_product_changes": true
+}

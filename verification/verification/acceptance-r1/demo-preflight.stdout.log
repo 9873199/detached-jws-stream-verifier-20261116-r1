@@ -1,0 +1,7 @@
+Archive signature verification - fresh local run
+HS256: verified; 35 bytes; 13 bounded reads
+RS256: verified; 35 bytes; 13 bounded reads
+PS256: verified; 35 bytes; 13 bounded reads
+Changed archive: REJECTED (signature mismatch)
+8-byte limit: REJECTED after 9 bytes; reading stopped
+All displayed checks completed against the frozen library.

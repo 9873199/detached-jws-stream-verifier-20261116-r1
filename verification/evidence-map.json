@@ -1,0 +1,72 @@
+{
+  "requirements": [
+    {
+      "requirement": "Three explicit permitted algorithms, original protected representation and local JWK only",
+      "source": "jwcrypto/jwsstream.py:_check_header,_make_verifier,verify_detached_stream",
+      "evidence": [
+        "independent signature vectors",
+        "original-protected encoding test",
+        "algorithm permission test"
+      ],
+      "result": "CONFIRMED"
+    },
+    {
+      "requirement": "Nonseek short reads, b64 remainder across chunks and raw b64false bytes",
+      "source": "jwcrypto/jwsstream.py:_B64UrlEncoder,verify_detached_stream",
+      "evidence": [
+        "48 independent positive parameter cases",
+        "model TestJWSStream chunk/b64 tests"
+      ],
+      "result": "CONFIRMED"
+    },
+    {
+      "requirement": "Reject duplicate JSON members, unknown crit, invalid b64 and simultaneous external/embedded body",
+      "source": "jwcrypto/jwsstream.py:_reject_duplicate_members,_parse_compact,_check_header",
+      "evidence": [
+        "header and ambiguity tests"
+      ],
+      "result": "CONFIRMED"
+    },
+    {
+      "requirement": "Stop on budget or read error; no returned body, no close and no old JWS object state",
+      "source": "jwcrypto/jwsstream.py:verify_detached_stream",
+      "evidence": [
+        "size/read error tests",
+        "no JWS instance mutation in complete code review"
+      ],
+      "result": "CONFIRMED"
+    },
+    {
+      "requirement": "PS256 JWA salt32, public imports, documentation, old memory/detached regression",
+      "source": "jwcrypto/jwsstream.py:_make_verifier; docs/source/jwsstream.rst; docs/source/index.rst",
+      "evidence": [
+        "wrong PSS salt rejected",
+        "actual-import.json",
+        "159 model-regression cases"
+      ],
+      "result": "CONFIRMED"
+    }
+  ],
+  "process_evidence": {
+    "jwa_and_key_interface_review_native_lines": [
+      14,
+      31,
+      32,
+      39,
+      44
+    ],
+    "new_tests_native_output_line": 96,
+    "full_regression_native_output_line": 101,
+    "unavailable_optional_flake8_excluded_native_line": 105
+  },
+  "independent_checks_are_not_native_model_tests": true,
+  "not_deducted": [
+    "Optional flake8 command was unavailable; not an explicit task acceptance gate.",
+    "Two initial gateway attempts were separate engineering-invalid originals."
+  ],
+  "time": "2026-11-16T01:55:03+08:00",
+  "uid": 11561,
+  "frozen_commit": "f16de4a0bed2d6fa9cf5980f97131f576d452680",
+  "native_trace_sha256": "875d1977795409685183893b282af5c80a674f8f3714c07d0cda6b15b1d42c2f",
+  "no_model_source_changes_after_freeze": true
+}

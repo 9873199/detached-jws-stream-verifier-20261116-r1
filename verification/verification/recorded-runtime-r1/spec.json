@@ -1,0 +1,332 @@
+{
+  "directory": "D:\\hc\\userFeedback\\cache\\security-new20-20261116-r1\\evaluation\\uf-20261116-new20-detached-jws-stream-verifier-retry-1\\recording-word-timing-r1",
+  "title": "Archive signature validation",
+  "cwd": "D:\\hc\\userFeedback\\cache\\security-new20-20261116-r1\\evaluation\\uf-20261116-new20-detached-jws-stream-verifier-retry-1\\verification\\acceptance-r1",
+  "capture": "wgc",
+  "environment": {
+    "PYTHONPATH": "D:\\hc\\userFeedback\\cache\\security-new20-20261116-r1\\evaluation\\uf-20261116-new20-detached-jws-stream-verifier-retry-1\\verification\\acceptance-r1\\replay-source",
+    "PYTHONIOENCODING": "utf-8",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "commands": [
+    {
+      "id": "archive",
+      "label": "Validate the archived payload and reject modified data",
+      "display": "python demo.py",
+      "argv": [
+        "D:\\hc\\userFeedback\\cache\\security-new20-20261116-r1\\runtime-tasks\\jwcrypto\\env\\Scripts\\python.exe",
+        "demo.py"
+      ],
+      "start_at_seconds": 3,
+      "typing_events": [
+        {
+          "key": "p",
+          "delay_seconds": 0.47635631810321355,
+          "kind": "word_boundary",
+          "phase": "initial",
+          "word_index": 0
+        },
+        {
+          "key": "y",
+          "delay_seconds": 0.176792343255018,
+          "kind": "letter",
+          "phase": "initial",
+          "word_index": 0
+        },
+        {
+          "key": "t",
+          "delay_seconds": 0.29963784133000637,
+          "kind": "letter",
+          "phase": "initial",
+          "word_index": 0
+        },
+        {
+          "key": "h",
+          "delay_seconds": 0.2482849956079098,
+          "kind": "letter",
+          "phase": "initial",
+          "word_index": 0
+        },
+        {
+          "key": "o",
+          "delay_seconds": 0.27307708869481384,
+          "kind": "letter",
+          "phase": "initial",
+          "word_index": 0
+        },
+        {
+          "key": "e",
+          "delay_seconds": 0.3466698596659883,
+          "kind": "letter",
+          "phase": "initial",
+          "word_index": 0
+        },
+        {
+          "key": "BACKSPACE",
+          "delay_seconds": 0.5534524090025283,
+          "kind": "word_boundary",
+          "phase": "repair_erase",
+          "word_index": 0
+        },
+        {
+          "key": "BACKSPACE",
+          "delay_seconds": 0.14481240845108456,
+          "kind": "erase",
+          "phase": "repair_erase",
+          "word_index": 0
+        },
+        {
+          "key": "BACKSPACE",
+          "delay_seconds": 0.31182360347145954,
+          "kind": "erase",
+          "phase": "repair_erase",
+          "word_index": 0
+        },
+        {
+          "key": "BACKSPACE",
+          "delay_seconds": 0.29962423528904114,
+          "kind": "erase",
+          "phase": "repair_erase",
+          "word_index": 0
+        },
+        {
+          "key": "BACKSPACE",
+          "delay_seconds": 0.31225956270252775,
+          "kind": "erase",
+          "phase": "repair_erase",
+          "word_index": 0
+        },
+        {
+          "key": "BACKSPACE",
+          "delay_seconds": 0.14337092499463852,
+          "kind": "erase",
+          "phase": "repair_erase",
+          "word_index": 0
+        },
+        {
+          "key": "p",
+          "delay_seconds": 0.43975646810290814,
+          "kind": "word_boundary",
+          "phase": "repair_retype",
+          "word_index": 0
+        },
+        {
+          "key": "y",
+          "delay_seconds": 0.13663417803492722,
+          "kind": "letter",
+          "phase": "repair_retype",
+          "word_index": 0
+        },
+        {
+          "key": "t",
+          "delay_seconds": 0.23035539809041128,
+          "kind": "letter",
+          "phase": "repair_retype",
+          "word_index": 0
+        },
+        {
+          "key": "h",
+          "delay_seconds": 0.2291771940006357,
+          "kind": "letter",
+          "phase": "repair_retype",
+          "word_index": 0
+        },
+        {
+          "key": "o",
+          "delay_seconds": 0.2948770846371808,
+          "kind": "letter",
+          "phase": "repair_retype",
+          "word_index": 0
+        },
+        {
+          "key": "n",
+          "delay_seconds": 0.3489539106533745,
+          "kind": "letter",
+          "phase": "repair_retype",
+          "word_index": 0
+        },
+        {
+          "key": " ",
+          "delay_seconds": 0,
+          "kind": "separator",
+          "phase": "separator",
+          "word_index": 1
+        },
+        {
+          "key": "i",
+          "delay_seconds": 0.5441408644761389,
+          "kind": "word_boundary",
+          "phase": "initial",
+          "word_index": 1
+        },
+        {
+          "key": "e",
+          "delay_seconds": 0.17300822292340512,
+          "kind": "letter",
+          "phase": "initial",
+          "word_index": 1
+        },
+        {
+          "key": "m",
+          "delay_seconds": 0.1802886586560093,
+          "kind": "letter",
+          "phase": "initial",
+          "word_index": 1
+        },
+        {
+          "key": "o",
+          "delay_seconds": 0.16630601320105556,
+          "kind": "letter",
+          "phase": "initial",
+          "word_index": 1
+        },
+        {
+          "key": ".",
+          "delay_seconds": 0.5228396582890253,
+          "kind": "special",
+          "phase": "initial",
+          "word_index": 1
+        },
+        {
+          "key": "p",
+          "delay_seconds": 0.482530942335175,
+          "kind": "word_boundary",
+          "phase": "initial",
+          "word_index": 1
+        },
+        {
+          "key": "y",
+          "delay_seconds": 0.1343019852928861,
+          "kind": "letter",
+          "phase": "initial",
+          "word_index": 1
+        },
+        {
+          "key": "BACKSPACE",
+          "delay_seconds": 0.5293442946993809,
+          "kind": "word_boundary",
+          "phase": "repair_erase",
+          "word_index": 1
+        },
+        {
+          "key": "BACKSPACE",
+          "delay_seconds": 0.30403646315984845,
+          "kind": "erase",
+          "phase": "repair_erase",
+          "word_index": 1
+        },
+        {
+          "key": "BACKSPACE",
+          "delay_seconds": 0.16462252133910982,
+          "kind": "erase",
+          "phase": "repair_erase",
+          "word_index": 1
+        },
+        {
+          "key": "BACKSPACE",
+          "delay_seconds": 0.32680579837464485,
+          "kind": "erase",
+          "phase": "repair_erase",
+          "word_index": 1
+        },
+        {
+          "key": "BACKSPACE",
+          "delay_seconds": 0.3307472457701848,
+          "kind": "erase",
+          "phase": "repair_erase",
+          "word_index": 1
+        },
+        {
+          "key": "BACKSPACE",
+          "delay_seconds": 0.12991586706416156,
+          "kind": "erase",
+          "phase": "repair_erase",
+          "word_index": 1
+        },
+        {
+          "key": "BACKSPACE",
+          "delay_seconds": 0.2377706857348205,
+          "kind": "erase",
+          "phase": "repair_erase",
+          "word_index": 1
+        },
+        {
+          "key": "d",
+          "delay_seconds": 0.43683864969251723,
+          "kind": "word_boundary",
+          "phase": "repair_retype",
+          "word_index": 1
+        },
+        {
+          "key": "e",
+          "delay_seconds": 0.2544174192066584,
+          "kind": "letter",
+          "phase": "repair_retype",
+          "word_index": 1
+        },
+        {
+          "key": "m",
+          "delay_seconds": 0.20897863542126496,
+          "kind": "letter",
+          "phase": "repair_retype",
+          "word_index": 1
+        },
+        {
+          "key": "o",
+          "delay_seconds": 0.19995275718603478,
+          "kind": "letter",
+          "phase": "repair_retype",
+          "word_index": 1
+        },
+        {
+          "key": ".",
+          "delay_seconds": 0.5779522023364099,
+          "kind": "special",
+          "phase": "repair_retype",
+          "word_index": 1
+        },
+        {
+          "key": "p",
+          "delay_seconds": 0.5294994624450483,
+          "kind": "word_boundary",
+          "phase": "repair_retype",
+          "word_index": 1
+        },
+        {
+          "key": "y",
+          "delay_seconds": 0.28458200322635574,
+          "kind": "letter",
+          "phase": "repair_retype",
+          "word_index": 1
+        }
+      ],
+      "repaired_word_indices": [
+        0,
+        1
+      ],
+      "words": [
+        "python",
+        "demo.py"
+      ]
+    }
+  ],
+  "input_automation": {
+    "mode": "automated console character editor",
+    "source_is_human": false,
+    "timing_policy": "word-special-v2",
+    "within_word_letter_delay_seconds": [
+      0.1,
+      0.5
+    ],
+    "before_special_and_between_words_delay_seconds": [
+      0.4,
+      0.8
+    ],
+    "whole_word_repairs_per_command": [
+      1,
+      3
+    ],
+    "planned_typing_seconds": 11.984796174917802,
+    "command_executes_only_after_exact_buffer_match": true
+  }
+}

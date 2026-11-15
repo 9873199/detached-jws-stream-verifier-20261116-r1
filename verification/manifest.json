@@ -1,0 +1,178 @@
+{
+  "created": "2026-11-16T01:55:03+08:00",
+  "reviewed": true,
+  "reviewer": "Codex primary agent, AI-assisted",
+  "uid": 11561,
+  "frozen_commit": "f16de4a0bed2d6fa9cf5980f97131f576d452680",
+  "native_trajectory_sha256": "875d1977795409685183893b282af5c80a674f8f3714c07d0cda6b15b1d42c2f",
+  "files": [
+    {
+      "source": "D:\\hc\\userFeedback\\cache\\security-new20-20261116-r1\\evaluation\\uf-20261116-new20-detached-jws-stream-verifier-retry-1\\freeze.json",
+      "path": "freeze.json",
+      "sha256": "0a6935b16629eb19acc44c34b9cbbdd97215cf3f74456ce8d58f9d4471c1607f"
+    },
+    {
+      "source": "D:\\hc\\userFeedback\\cache\\security-new20-20261116-r1\\evaluation\\uf-20261116-new20-detached-jws-stream-verifier-retry-1\\freeze-audit.json",
+      "path": "freeze-audit.json",
+      "sha256": "9c226e4136d1dcd2e7e8e6e3e8311bf7ba1fd4140197dedcc34b59c6562d407d"
+    },
+    {
+      "source": "D:\\hc\\userFeedback\\cache\\security-new20-20261116-r1\\evaluation\\uf-20261116-new20-detached-jws-stream-verifier-retry-1\\environment-reviewed.json",
+      "path": "environment-reviewed.json",
+      "sha256": "41d649a408741369232cb52f0d7ffa79eaf1b420369c65eab91779a802cf5dfc"
+    },
+    {
+      "source": "D:\\hc\\userFeedback\\cache\\security-new20-20261116-r1\\evaluation\\uf-20261116-new20-detached-jws-stream-verifier-retry-1\\evidence-map.json",
+      "path": "evidence-map.json",
+      "sha256": "d8dfe5946d2cade51fca22c7bc1627de9ea909b2051e2f04db9bdc38af643b9c"
+    },
+    {
+      "source": "D:\\hc\\userFeedback\\cache\\security-new20-20261116-r1\\evaluation\\uf-20261116-new20-detached-jws-stream-verifier-retry-1\\model-final-answer.txt",
+      "path": "model-final-answer.txt",
+      "sha256": "2ff72892a40465e4ea377c59f054e99c6382af71582a6bfeb831a1a08fb065a5"
+    },
+    {
+      "source": "D:\\hc\\userFeedback\\cache\\security-new20-20261116-r1\\evaluation\\uf-20261116-new20-detached-jws-stream-verifier-retry-1\\test-results.json",
+      "path": "test-results.json",
+      "sha256": "148c1afdcdfd35396336af65945a1227962e99d1026413c0245fd7e6f9a77f43"
+    },
+    {
+      "source": "D:\\hc\\userFeedback\\cache\\security-new20-20261116-r1\\evaluation\\uf-20261116-new20-detached-jws-stream-verifier-retry-1\\evaluation-qc.json",
+      "path": "evaluation-qc.json",
+      "sha256": "505212d24c74b3fa734ede4fc505bf5904451a043f15b0122de5920c1e013e31"
+    },
+    {
+      "source": "D:\\hc\\userFeedback\\cache\\security-new20-20261116-r1\\evaluation\\uf-20261116-new20-detached-jws-stream-verifier-retry-1\\verification\\acceptance-r1\\actual-import.json",
+      "path": "verification/acceptance-r1/actual-import.json",
+      "sha256": "d6723cde6a6fcf60936f47426a3589f19c1b7263e44bd0eb28a731cb15fb63dd"
+    },
+    {
+      "source": "D:\\hc\\userFeedback\\cache\\security-new20-20261116-r1\\evaluation\\uf-20261116-new20-detached-jws-stream-verifier-retry-1\\verification\\acceptance-r1\\actual-import.stderr.log",
+      "path": "verification/acceptance-r1/actual-import.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "D:\\hc\\userFeedback\\cache\\security-new20-20261116-r1\\evaluation\\uf-20261116-new20-detached-jws-stream-verifier-retry-1\\verification\\acceptance-r1\\actual-import.stdout.log",
+      "path": "verification/acceptance-r1/actual-import.stdout.log",
+      "sha256": "c3b27d5a722f85073c30d644c0c4679ba6fcc1fb931d8e929adeb703a72c6c9b"
+    },
+    {
+      "source": "D:\\hc\\userFeedback\\cache\\security-new20-20261116-r1\\evaluation\\uf-20261116-new20-detached-jws-stream-verifier-retry-1\\verification\\acceptance-r1\\demo-preflight.json",
+      "path": "verification/acceptance-r1/demo-preflight.json",
+      "sha256": "98777c40e9cfdc88fcd86eacd66f5ce3c3c00cb96b1be039a56bfc82d0bc672c"
+    },
+    {
+      "source": "D:\\hc\\userFeedback\\cache\\security-new20-20261116-r1\\evaluation\\uf-20261116-new20-detached-jws-stream-verifier-retry-1\\verification\\acceptance-r1\\demo-preflight.stderr.log",
+      "path": "verification/acceptance-r1/demo-preflight.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "D:\\hc\\userFeedback\\cache\\security-new20-20261116-r1\\evaluation\\uf-20261116-new20-detached-jws-stream-verifier-retry-1\\verification\\acceptance-r1\\demo-preflight.stdout.log",
+      "path": "verification/acceptance-r1/demo-preflight.stdout.log",
+      "sha256": "be79d9068c26b1a8325811257f68406dc9ddc43bfd629336f06c9afd22de1283"
+    },
+    {
+      "source": "D:\\hc\\userFeedback\\cache\\security-new20-20261116-r1\\evaluation\\uf-20261116-new20-detached-jws-stream-verifier-retry-1\\verification\\acceptance-r1\\demo.py",
+      "path": "verification/acceptance-r1/demo.py",
+      "sha256": "2b250176b1b3a4c219e16b7b53923c5d94a0937390ba282fc601dd6f162461dd"
+    },
+    {
+      "source": "D:\\hc\\userFeedback\\cache\\security-new20-20261116-r1\\evaluation\\uf-20261116-new20-detached-jws-stream-verifier-retry-1\\verification\\acceptance-r1\\dependency-lock.json",
+      "path": "verification/acceptance-r1/dependency-lock.json",
+      "sha256": "a1a7f6702e3565949bce688b765c589a0206590ff1768b1e1baadad3ba038fc2"
+    },
+    {
+      "source": "D:\\hc\\userFeedback\\cache\\security-new20-20261116-r1\\evaluation\\uf-20261116-new20-detached-jws-stream-verifier-retry-1\\verification\\acceptance-r1\\dependency-lock.stderr.log",
+      "path": "verification/acceptance-r1/dependency-lock.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "D:\\hc\\userFeedback\\cache\\security-new20-20261116-r1\\evaluation\\uf-20261116-new20-detached-jws-stream-verifier-retry-1\\verification\\acceptance-r1\\dependency-lock.stdout.log",
+      "path": "verification/acceptance-r1/dependency-lock.stdout.log",
+      "sha256": "94219031f9fa374e5c74e02a722358ffe75834a0ba745fcacf8fc2c0d421ccc4"
+    },
+    {
+      "source": "D:\\hc\\userFeedback\\cache\\security-new20-20261116-r1\\evaluation\\uf-20261116-new20-detached-jws-stream-verifier-retry-1\\verification\\acceptance-r1\\independent-stream-contract.json",
+      "path": "verification/acceptance-r1/independent-stream-contract.json",
+      "sha256": "3512dde972dec3b12a2e14aac5993e6358460787b2a6adb0a00238c295095f65"
+    },
+    {
+      "source": "D:\\hc\\userFeedback\\cache\\security-new20-20261116-r1\\evaluation\\uf-20261116-new20-detached-jws-stream-verifier-retry-1\\verification\\acceptance-r1\\independent-stream-contract.stderr.log",
+      "path": "verification/acceptance-r1/independent-stream-contract.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "D:\\hc\\userFeedback\\cache\\security-new20-20261116-r1\\evaluation\\uf-20261116-new20-detached-jws-stream-verifier-retry-1\\verification\\acceptance-r1\\independent-stream-contract.stdout.log",
+      "path": "verification/acceptance-r1/independent-stream-contract.stdout.log",
+      "sha256": "18b66d69aee352d5d92b947fd7d9271e9a0d9d148767be48c848f3cfd7b90315"
+    },
+    {
+      "source": "D:\\hc\\userFeedback\\cache\\security-new20-20261116-r1\\evaluation\\uf-20261116-new20-detached-jws-stream-verifier-retry-1\\verification\\acceptance-r1\\model-regression.json",
+      "path": "verification/acceptance-r1/model-regression.json",
+      "sha256": "3973a48185a4f31276ce82a183c55f8be78de3b030fbe331ced78ece670e870b"
+    },
+    {
+      "source": "D:\\hc\\userFeedback\\cache\\security-new20-20261116-r1\\evaluation\\uf-20261116-new20-detached-jws-stream-verifier-retry-1\\verification\\acceptance-r1\\model-regression.stderr.log",
+      "path": "verification/acceptance-r1/model-regression.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "D:\\hc\\userFeedback\\cache\\security-new20-20261116-r1\\evaluation\\uf-20261116-new20-detached-jws-stream-verifier-retry-1\\verification\\acceptance-r1\\model-regression.stdout.log",
+      "path": "verification/acceptance-r1/model-regression.stdout.log",
+      "sha256": "bf91f92840a6033db8e2003607bb074a6cf049bc3c9b27bb475bfa185b74baa2"
+    },
+    {
+      "source": "D:\\hc\\userFeedback\\cache\\security-new20-20261116-r1\\evaluation\\uf-20261116-new20-detached-jws-stream-verifier-retry-1\\verification\\acceptance-r1\\replay-proof.json",
+      "path": "verification/acceptance-r1/replay-proof.json",
+      "sha256": "98b9b7997e8b126e51212e0e59859f1dbcd860be8d815089f58200d5f27aabd7"
+    },
+    {
+      "source": "D:\\hc\\userFeedback\\cache\\security-new20-20261116-r1\\evaluation\\uf-20261116-new20-detached-jws-stream-verifier-retry-1\\verification\\acceptance-r1\\reproduction-notes.md",
+      "path": "verification/acceptance-r1/reproduction-notes.md",
+      "sha256": "3f65285053448a146c306b34a6b576e16dc4911c7e4598da98a07d0c481a77d9"
+    },
+    {
+      "source": "D:\\hc\\userFeedback\\cache\\security-new20-20261116-r1\\evaluation\\uf-20261116-new20-detached-jws-stream-verifier-retry-1\\verification\\acceptance-r1\\reviewed-spec.json",
+      "path": "verification/acceptance-r1/reviewed-spec.json",
+      "sha256": "f4a2b918081f72c69babac06940a120e69d88524558a8126f5b60e58c820781f"
+    },
+    {
+      "source": "D:\\hc\\userFeedback\\cache\\security-new20-20261116-r1\\evaluation\\uf-20261116-new20-detached-jws-stream-verifier-retry-1\\verification\\acceptance-r1\\test_stream_contract.py",
+      "path": "verification/acceptance-r1/test_stream_contract.py",
+      "sha256": "fa92de4c882002ab21e374f2cd862a3df7c51598a58c8ddf0b3ff8b3a0edde50"
+    },
+    {
+      "source": "D:\\hc\\userFeedback\\cache\\security-new20-20261116-r1\\evaluation\\uf-20261116-new20-detached-jws-stream-verifier-retry-1\\verification\\recorded-runtime-r1\\actual-commands.json",
+      "path": "verification/recorded-runtime-r1/actual-commands.json",
+      "sha256": "dcf501e9d48c8dfacbeed58918a7ab93bdd9ec84f1ef9deec40f21481953795a"
+    },
+    {
+      "source": "D:\\hc\\userFeedback\\cache\\security-new20-20261116-r1\\evaluation\\uf-20261116-new20-detached-jws-stream-verifier-retry-1\\verification\\recorded-runtime-r1\\actual-keystrokes.json",
+      "path": "verification/recorded-runtime-r1/actual-keystrokes.json",
+      "sha256": "88e769e031db207173f84da7faa39fb16ab86be4486b63a8e36aa0ed66916a88"
+    },
+    {
+      "source": "D:\\hc\\userFeedback\\cache\\security-new20-20261116-r1\\evaluation\\uf-20261116-new20-detached-jws-stream-verifier-retry-1\\verification\\recorded-runtime-r1\\archive-output.log",
+      "path": "verification/recorded-runtime-r1/archive-output.log",
+      "sha256": "be79d9068c26b1a8325811257f68406dc9ddc43bfd629336f06c9afd22de1283"
+    },
+    {
+      "source": "D:\\hc\\userFeedback\\cache\\security-new20-20261116-r1\\evaluation\\uf-20261116-new20-detached-jws-stream-verifier-retry-1\\verification\\recorded-runtime-r1\\recording-status.json",
+      "path": "verification/recorded-runtime-r1/recording-status.json",
+      "sha256": "31931405884454b59c836f4ed293b6f223caf08a12158d2b2b074b8bc0045d5e"
+    },
+    {
+      "source": "D:\\hc\\userFeedback\\cache\\security-new20-20261116-r1\\evaluation\\uf-20261116-new20-detached-jws-stream-verifier-retry-1\\verification\\recorded-runtime-r1\\spec.json",
+      "path": "verification/recorded-runtime-r1/spec.json",
+      "sha256": "27809f83110c661983db74e17fb55232922ef7dad8695bba5aaca8ede0be363b"
+    },
+    {
+      "source": "D:\\hc\\userFeedback\\cache\\security-new20-20261116-r1\\evaluation\\uf-20261116-new20-detached-jws-stream-verifier-retry-1\\verification\\recorded-runtime-r1\\typing-check.json",
+      "path": "verification/recorded-runtime-r1/typing-check.json",
+      "sha256": "078989eaba327d8a27afb6d4dd13108800dbf34be9bd2b974e2eab08e53a35c6"
+    }
+  ],
+  "reproduction_readme": "独立验收在首轮结束后执行，未修改模型源码。使用Python3.14，先按acceptance-r1/dependency-lock.stdout.log安装依赖。以冻结产物仓库为工作目录并设置PYTHONPATH为仓库根目录，执行 python -m pytest -q jwcrypto/tests.py；再执行 python -m pytest -q verification/acceptance-r1/test_stream_contract.py。录屏中的 python demo.py 对应 verification/acceptance-r1/demo.py，展示真实冻结库调用。精确命令、解释器版本和各自stdout/stderr均随材料提供；本机绝对路径应替换成复现环境路径。",
+  "no_model_source_edits": true,
+  "native_trace_included": false
+}

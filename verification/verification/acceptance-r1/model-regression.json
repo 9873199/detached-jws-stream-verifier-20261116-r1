@@ -1,0 +1,20 @@
+{
+  "time": "2026-11-16T01:49:34+08:00",
+  "argv": [
+    "D:\\hc\\userFeedback\\cache\\security-new20-20261116-r1\\runtime-tasks\\jwcrypto\\env\\Scripts\\python.exe",
+    "-B",
+    "-m",
+    "pytest",
+    "-q",
+    "jwcrypto/tests.py",
+    "-o",
+    "addopts=",
+    "-p",
+    "no:cacheprovider",
+    "--disable-socket"
+  ],
+  "cwd": "D:\\hc\\userFeedback\\cache\\security-new20-20261116-r1\\evaluation\\uf-20261116-new20-detached-jws-stream-verifier-retry-1\\verification\\acceptance-r1\\replay-source",
+  "exit_code": 0,
+  "stdout_log": "D:\\hc\\userFeedback\\cache\\security-new20-20261116-r1\\evaluation\\uf-20261116-new20-detached-jws-stream-verifier-retry-1\\verification\\acceptance-r1\\model-regression.stdout.log",
+  "stderr_log": "D:\\hc\\userFeedback\\cache\\security-new20-20261116-r1\\evaluation\\uf-20261116-new20-detached-jws-stream-verifier-retry-1\\verification\\acceptance-r1\\model-regression.stderr.log"
+}

@@ -1,0 +1,18 @@
+{
+  "native_model_tests": {
+    "new_tests": 22,
+    "regression_total": 159,
+    "evidence": "observable-tool-results.json native lines96,101"
+  },
+  "frozen_replay": {
+    "regression": {
+      "passed": 159,
+      "failed": 0
+    },
+    "independent_contract": {
+      "passed": 62,
+      "failed": 0
+    }
+  },
+  "demo_exit_code": 0
+}

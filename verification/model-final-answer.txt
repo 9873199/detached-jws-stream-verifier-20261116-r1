@@ -1,0 +1,28 @@
+完成。所有 159 个测试通过（22 个新增 + 137 个旧回归，含 `TestUnencodedPayload` 的 detached_payload 用例）。
+
+## 改动
+
+**新增 `jwcrypto/jwsstream.py`** — 公开导入：
+```python
+from jwcrypto.jwsstream import (
+    verify_detached_stream,      # 流式验证入口
+    JWSStreamResult,             # 不可变结果（namedtuple，仅验证成功后才会产生）
+    JWSStreamPayloadTooLarge,    # 累计超限异常
+    STREAMING_SUPPORTED_ALGS,    # frozenset({'HS256','RS256','PS256'})
+)
+```
+
+**`verify_detached_stream(token, key, stream, allowed_algs, chunk_size=64KiB, max_payload_size=None)`** 的关键语义：
+
+- **一次性读取**：流只被顺序消费一遍，不 seek、不关闭调用者的流；每次 `read(chunk_size)` 有固定上界，允许短读（非空即继续，空字节判 EOF）。累计字节超过 `max_payload_size` 立即抛 `JWSStreamPayloadTooLarge`，不再继续读。
+- **算法许可**：`allowed_algs` 必填，且只允许 HS256/RS256/PS256 子集（传其他算法直接 `ValueError`）；token 的 `alg` 必须落在许可集内，无法扩大许可。只接受调用者给的本地 `JWK`，`jku`/`x5u` 从不触发网络取钥。
+- **protected 原编码**：签名输入直接使用 token 中 protected 段的原始 base64url 字节（先按 UTF-8 切分 token 再解析），重编码即验签失败。JSON 解析用 `object_pairs_hook` 拒绝重复成员；未理解的 `crit` 条目、`b64` 非布尔、`b64` 出现但未列入 `crit`（含 b64=false 未声明）均拒绝。非空中间段与外部流同时出现抛 `InvalidJWSOperation`。
+- **b64=true 跨块编码**：`_B64UrlEncoder` 保留 1–2 字节余数跨块，只对 3 的整数倍编码、结尾一次性处理余数，输出等同于整个正文做一次 base64url（无 padding），不会逐块补 padding 拼接；b64=false 直接认证原字节。空文件、NUL、UTF-8、非 UTF-8 都按字节处理。
+- **PS256**：增量 SHA-256 + `Prehashed` 验证，PSS salt 长度固定为 32（JWA 规定）；测试证明 salt=48 的签名会被拒绝。
+- **失败无残留**：验签失败、超限、读异常都直接抛出，不产生结果对象；全程不触碰 `JWS` 实例，不存在 `is_valid` 旧状态。结果对象只含 `alg` / 只读 `protected_header` / `payload_size`，不含已验证正文。
+
+**测试**（`TestJWSStream`，22 个）：独立一次性签名器 × 9 种分块长度（1/2/3/4/5/7/64/1024/65536）× 三算法互验；0–8 字节及 64K±1 边界余数；与经典 `JWS` 双向互验（库内签名→流式验、独立签名→`detached_payload` 内存验，含 b64=false）；文件中部翻转字节、protected 重编码、短读后抛错、超限即停（断言未读完）、流未被关闭、结果不可变等。
+
+**文档**：新增 `docs/source/jwsstream.rst`（说明一次性语义、支持算法、示例），并加入 `index.rst` 的 Public APIs toctree。
+
+改动未提交，如需我提交可以说一声。
